@@ -1,3 +1,6 @@
+import 'dart:math';
+
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import '../models/book.dart';
 import 'categories_screen.dart';
@@ -33,6 +36,8 @@ class _TabsScreenState extends State<TabsScreen> {
         'title': 'Your Favorites',
       },
     ];
+    DatabaseReference _testRef = FirebaseDatabase.instance.ref().child('test');
+    _testRef.set('Hello world ${Random().nextInt(100)}');
     super.initState();
   }
 

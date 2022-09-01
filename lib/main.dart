@@ -1,3 +1,4 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'dummy_data.dart';
 import 'models/book.dart';
@@ -6,7 +7,10 @@ import 'screens/filters_screen.dart';
 import 'screens/book_detail_screen.dart';
 import 'screens/tabs_screen.dart';
 
-void main() => runApp(const MyApp());
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  runApp(const MyApp());
+}
 
 class MyApp extends StatefulWidget {
   const MyApp({super.key});
@@ -61,6 +65,8 @@ class _MyAppState extends State<MyApp> {
     return _favoritedBooks.any((meal) => meal.id == mealId);
   }
 
+  final Future<FirebaseApp> _fbApp = Firebase.initializeApp();
+
   @override
   Widget build(BuildContext context) {
     final ThemeData theme = ThemeData(
@@ -87,9 +93,21 @@ class _MyAppState extends State<MyApp> {
         secondary: Colors.amber,
       )),
       routes: {
-        '/': (context) => TabsScreen(
-              favoriteBooks: _favoritedBooks,
-            ),
+        '/': (context) => FutureBuilder(
+            future: _fbApp,
+            builder: (context, snapshot) {
+              if (snapshot.hasError) {
+                return const Text('Something went wrong!');
+              } else if (snapshot.hasData) {
+                return TabsScreen(
+                  favoriteBooks: _favoritedBooks,
+                );
+              } else {
+                return const Center(
+                  child: CircularProgressIndicator(),
+                );
+              }
+            }),
         CategoryBooksScreen.routeName: (context) =>
             CategoryBooksScreen(availableBooks: _availableBooks),
         BookDetailScreen.routeName: (context) => BookDetailScreen(

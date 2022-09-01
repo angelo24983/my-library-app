@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "87744398371",
+    "firebase_url": "https://mylibrary-5611b-default-rtdb.europe-west1.firebasedatabase.app/",
+    "project_id": "mylibrary-5611b",
+    "storage_bucket": "mylibrary-5611b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:87744398371:android:1b87bc0e5cb2520a745d96",
+        "android_client_info": {
+          "package_name": "com.aguzzo.my_library"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "87744398371-4308snfpk9j33a48m32p7qtuakrusbkl.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCxu9YU3Zz-wpL0KDGZYy7GAIr5M37gyWg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "87744398371-4308snfpk9j33a48m32p7qtuakrusbkl.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
