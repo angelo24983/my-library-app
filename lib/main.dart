@@ -1,5 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:my_library/screens/edit_book_screen.dart';
 import 'dummy_data.dart';
 import 'models/book.dart';
 import 'screens/category_books_screen.dart';
@@ -118,6 +119,7 @@ class _MyAppState extends State<MyApp> {
               saveFilters: _setFilters,
               currentFilters: _filters,
             ),
+        EditBookScreen.routeName: (context) => const EditBookScreen(),
       },
     );
   }

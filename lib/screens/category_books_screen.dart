@@ -45,7 +45,7 @@ class _CategoryBooksScreenState extends State<CategoryBooksScreen> {
       body: ListView.builder(
         itemBuilder: (context, index) {
           return BookItem(
-            id: displayedBooks[index].id,
+            id: displayedBooks[index].id!,
             title: displayedBooks[index].title,
             author: displayedBooks[index].author,
             description: displayedBooks[index].description,

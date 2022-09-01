@@ -20,7 +20,7 @@ class FavoritesScreen extends StatelessWidget {
       return ListView.builder(
         itemBuilder: (context, index) {
           return BookItem(
-            id: favoriteBooks[index].id,
+            id: favoriteBooks[index].id!,
             title: favoriteBooks[index].title,
             author: favoriteBooks[index].author,
             description: favoriteBooks[index].description,

@@ -80,28 +80,16 @@ class BookItem extends StatelessWidget {
                 children: [
                   Row(
                     children: [
-                      const Icon(
-                        Icons.schedule,
-                      ),
-                      const SizedBox(
-                        width: 6,
-                      ),
-                      Text(
-                        author,
-                      ),
+                      const Icon(Icons.schedule),
+                      const SizedBox(width: 6),
+                      Text(author),
                     ],
                   ),
                   Row(
                     children: [
-                      const Icon(
-                        Icons.work,
-                      ),
-                      const SizedBox(
-                        width: 6,
-                      ),
-                      Text(
-                        description,
-                      ),
+                      const Icon(Icons.work),
+                      const SizedBox(width: 6),
+                      Text(description),
                     ],
                   ),
                 ],

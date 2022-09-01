@@ -62,7 +62,7 @@ class BookDetailScreen extends StatelessWidget {
           ),
           buildSectionTitle(context, 'Category'),
           buildContainer(
-            Text(selectedBook.author),
+            Text(selectedBook.category),
           ),
         ]),
       ),
