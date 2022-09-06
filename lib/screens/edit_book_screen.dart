@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:my_library/widgets/main_drawer.dart';
 import 'package:provider/provider.dart';
 import '../models/book.dart';
-import '../providers/books_provider.dart';
+import '../models/book_model.dart';
 
 class EditBookScreen extends StatefulWidget {
   static const routeName = '/edit-book';
@@ -109,6 +110,7 @@ class _EditBookScreenState extends State<EditBookScreen> {
           ),
         ],
       ),
+      drawer: const MainDrawer(),
       body: _isLoading
           ? const Center(
               child: CircularProgressIndicator(),

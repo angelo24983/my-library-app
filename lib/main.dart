@@ -1,6 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:my_library/providers/books_provider.dart';
+import 'package:my_library/models/book_model.dart';
 import 'package:my_library/screens/books_screen.dart';
 import 'package:my_library/screens/edit_book_screen.dart';
 import 'package:provider/provider.dart';
@@ -129,7 +129,7 @@ class _MyAppState extends State<MyApp> {
                 currentFilters: _filters,
               ),
           EditBookScreen.routeName: (context) => const EditBookScreen(),
-          BooksScreen.routeName: (context) => BooksScreen(),
+          BooksScreen.routeName: (context) => const BooksScreen(),
         },
       ),
     );
