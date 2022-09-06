@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:my_library/screens/books_screen.dart';
+import 'package:my_library/screens/edit_book_screen.dart';
 import '../screens/filters_screen.dart';
 
 class MainDrawer extends StatelessWidget {
@@ -59,6 +61,21 @@ class MainDrawer extends StatelessWidget {
             () {
               Navigator.of(context)
                   .pushReplacementNamed(FiltersScreen.routeName);
+            },
+          ),
+          buildListTile(
+            'Books',
+            Icons.book,
+            () {
+              Navigator.of(context).pushReplacementNamed(BooksScreen.routeName);
+            },
+          ),
+          buildListTile(
+            'Add Book',
+            Icons.book,
+            () {
+              Navigator.of(context)
+                  .pushReplacementNamed(EditBookScreen.routeName);
             },
           ),
         ],

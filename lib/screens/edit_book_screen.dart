@@ -34,17 +34,19 @@ class _EditBookScreenState extends State<EditBookScreen> {
   @override
   void didChangeDependencies() {
     if (_isInit) {
-      final productId = ModalRoute.of(context)?.settings.arguments as String;
+      final bookId = ModalRoute.of(context)?.settings.arguments;
 
-      _editedBook = Provider.of<BooksProvider>(context, listen: false)
-          .findById(productId);
-      _initValues = {
-        'title': _editedBook.title,
-        'description': _editedBook.description,
-        'author': _editedBook.author,
-        'category': _editedBook.category,
-        'imageUrl': '',
-      };
+      if (bookId != null) {
+        _editedBook = Provider.of<BooksProvider>(context, listen: false)
+            .findById(bookId as String);
+        _initValues = {
+          'title': _editedBook.title,
+          'description': _editedBook.description,
+          'author': _editedBook.author,
+          'category': _editedBook.category,
+          'imageUrl': '',
+        };
+      }
     }
     _isInit = false;
     super.didChangeDependencies();
@@ -87,14 +89,19 @@ class _EditBookScreenState extends State<EditBookScreen> {
       _isLoading = false;
     });
     if (!mounted) return;
-    Navigator.of(context).pop();
+    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+      content: Text('Your book has been saved!'),
+    ));
+    _editedBook.id == null
+        ? Navigator.of(context).pushNamed('/')
+        : Navigator.of(context).pop();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Edit Product'),
+        title: const Text('Edit Book'),
         actions: [
           IconButton(
             icon: const Icon(Icons.save),
@@ -137,7 +144,6 @@ class _EditBookScreenState extends State<EditBookScreen> {
                       initialValue: _initValues['author'],
                       decoration: const InputDecoration(labelText: 'Author'),
                       textInputAction: TextInputAction.next,
-                      keyboardType: TextInputType.number,
                       validator: (value) {
                         if (value == null || value.isEmpty) {
                           return 'Please enter an author.';
@@ -176,7 +182,7 @@ class _EditBookScreenState extends State<EditBookScreen> {
                           description: value ?? '',
                           imageUrl: _editedBook.imageUrl,
                           id: _editedBook.id,
-                          author: _editedBook.description,
+                          author: _editedBook.author,
                           category: _editedBook.category,
                         );
                       },

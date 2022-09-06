@@ -1,6 +1,9 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:my_library/providers/books_provider.dart';
+import 'package:my_library/screens/books_screen.dart';
 import 'package:my_library/screens/edit_book_screen.dart';
+import 'package:provider/provider.dart';
 import 'dummy_data.dart';
 import 'models/book.dart';
 import 'screens/category_books_screen.dart';
@@ -87,40 +90,48 @@ class _MyAppState extends State<MyApp> {
             fontWeight: FontWeight.bold,
           )),
     );
-    return MaterialApp(
-      title: 'DeliMeals',
-      theme: theme.copyWith(
-          colorScheme: theme.colorScheme.copyWith(
-        secondary: Colors.amber,
-      )),
-      routes: {
-        '/': (context) => FutureBuilder(
-            future: _fbApp,
-            builder: (context, snapshot) {
-              if (snapshot.hasError) {
-                return const Text('Something went wrong!');
-              } else if (snapshot.hasData) {
-                return TabsScreen(
-                  favoriteBooks: _favoritedBooks,
-                );
-              } else {
-                return const Center(
-                  child: CircularProgressIndicator(),
-                );
-              }
-            }),
-        CategoryBooksScreen.routeName: (context) =>
-            CategoryBooksScreen(availableBooks: _availableBooks),
-        BookDetailScreen.routeName: (context) => BookDetailScreen(
-              toggleFavorite: _toggleFavorite,
-              isBookFavorite: _isBookFavorite,
-            ),
-        FiltersScreen.routeName: (context) => FiltersScreen(
-              saveFilters: _setFilters,
-              currentFilters: _filters,
-            ),
-        EditBookScreen.routeName: (context) => const EditBookScreen(),
-      },
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
+          create: (ctx) => BooksProvider(),
+        ),
+      ],
+      child: MaterialApp(
+        title: 'DeliMeals',
+        theme: theme.copyWith(
+            colorScheme: theme.colorScheme.copyWith(
+          secondary: Colors.amber,
+        )),
+        routes: {
+          '/': (context) => FutureBuilder(
+              future: _fbApp,
+              builder: (context, snapshot) {
+                if (snapshot.hasError) {
+                  return const Text('Something went wrong!');
+                } else if (snapshot.hasData) {
+                  return TabsScreen(
+                    favoriteBooks: _favoritedBooks,
+                  );
+                } else {
+                  return const Center(
+                    child: CircularProgressIndicator(),
+                  );
+                }
+              }),
+          CategoryBooksScreen.routeName: (context) =>
+              CategoryBooksScreen(availableBooks: _availableBooks),
+          BookDetailScreen.routeName: (context) => BookDetailScreen(
+                toggleFavorite: _toggleFavorite,
+                isBookFavorite: _isBookFavorite,
+              ),
+          FiltersScreen.routeName: (context) => FiltersScreen(
+                saveFilters: _setFilters,
+                currentFilters: _filters,
+              ),
+          EditBookScreen.routeName: (context) => const EditBookScreen(),
+          BooksScreen.routeName: (context) => const BooksScreen(),
+        },
+      ),
     );
   }
 }
