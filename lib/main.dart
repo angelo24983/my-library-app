@@ -129,7 +129,7 @@ class _MyAppState extends State<MyApp> {
                 currentFilters: _filters,
               ),
           EditBookScreen.routeName: (context) => const EditBookScreen(),
-          BooksScreen.routeName: (context) => const BooksScreen(),
+          BooksScreen.routeName: (context) => BooksScreen(),
         },
       ),
     );
