@@ -5,12 +5,12 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:my_library/models/book.dart';
 
-class BooksProvider with ChangeNotifier {
+class BookModel with ChangeNotifier {
   List<Book> _books = [];
   late StreamSubscription _booksStream;
   final _db = FirebaseDatabase.instance.ref();
 
-  BooksProvider() {
+  BookModel() {
     _listenToBooks();
   }
 
@@ -42,15 +42,11 @@ class BooksProvider with ChangeNotifier {
   Future<void> addBook(Book book) async {
     try {
       DatabaseReference booksRef =
-          FirebaseDatabase.instance.ref().child('books');
+          FirebaseDatabase.instance.ref().child(booksPath);
 
       var pushedBookRef = booksRef.push();
 
-      await pushedBookRef.set({
-        'author': book.author,
-        'title': book.title,
-        'description': book.description,
-      });
+      await pushedBookRef.set(book.toJson());
 
       final newBook = Book(
         title: book.title,
@@ -71,13 +67,9 @@ class BooksProvider with ChangeNotifier {
     final bookIndex = _books.indexWhere((book) => book.id == id);
     if (bookIndex >= 0) {
       DatabaseReference bookRef =
-          FirebaseDatabase.instance.ref().child('books/$id');
+          FirebaseDatabase.instance.ref().child('$booksPath/$id');
 
-      await bookRef.update({
-        'author': newBook.author,
-        'title': newBook.title,
-        'description': newBook.description,
-      });
+      await bookRef.update(newBook.toJson());
       _books[bookIndex] = newBook;
       notifyListeners();
     }
@@ -90,7 +82,7 @@ class BooksProvider with ChangeNotifier {
     notifyListeners();
     try {
       DatabaseReference bookRef =
-          FirebaseDatabase.instance.ref().child('books/$id');
+          FirebaseDatabase.instance.ref().child('$books/$id');
       await bookRef.remove();
       existingBook = null as Book;
     } catch (error) {

@@ -1,10 +1,10 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:my_library/models/book_model.dart';
+import 'package:my_library/models/category_model.dart';
 import 'package:my_library/screens/books_screen.dart';
 import 'package:my_library/screens/edit_book_screen.dart';
 import 'package:provider/provider.dart';
-import 'dummy_data.dart';
 import 'models/book.dart';
 import 'screens/category_books_screen.dart';
 import 'screens/filters_screen.dart';
@@ -29,14 +29,14 @@ class _MyAppState extends State<MyApp> {
     'title': '',
   };
 
-  List<Book> _availableBooks = dummyBooks;
+  List<Book> _availableBooks = [];
 
   final List<Book> _favoritedBooks = [];
 
   void _setFilters(Map<String, String> filterData) {
     setState(() {
       _filters = filterData;
-      _availableBooks = dummyBooks.where((book) {
+      _availableBooks = _availableBooks.where((book) {
         if ((_filters['author'] == null || _filters['author'] == '') &&
             book.author != _filters['author']) {
           return false;
@@ -60,7 +60,8 @@ class _MyAppState extends State<MyApp> {
       });
     } else {
       setState(() {
-        _favoritedBooks.add(dummyBooks.firstWhere((meal) => meal.id == mealId));
+        _favoritedBooks
+            .add(_availableBooks.firstWhere((meal) => meal.id == mealId));
       });
     }
   }
@@ -93,7 +94,10 @@ class _MyAppState extends State<MyApp> {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(
-          create: (ctx) => BooksProvider(),
+          create: (ctx) => BookModel(),
+        ),
+        ChangeNotifierProvider(
+          create: (ctx) => CategoryModel(),
         ),
       ],
       child: MaterialApp(

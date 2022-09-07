@@ -38,7 +38,7 @@ class _EditBookScreenState extends State<EditBookScreen> {
       final bookId = ModalRoute.of(context)?.settings.arguments;
 
       if (bookId != null) {
-        _editedBook = Provider.of<BooksProvider>(context, listen: false)
+        _editedBook = Provider.of<BookModel>(context, listen: false)
             .findById(bookId as String);
         _initValues = {
           'title': _editedBook.title,
@@ -63,11 +63,11 @@ class _EditBookScreenState extends State<EditBookScreen> {
       _isLoading = true;
     });
     if (_editedBook.id != null) {
-      await Provider.of<BooksProvider>(context, listen: false)
+      await Provider.of<BookModel>(context, listen: false)
           .updateBook(_editedBook.id!, _editedBook);
     } else {
       try {
-        await Provider.of<BooksProvider>(context, listen: false)
+        await Provider.of<BookModel>(context, listen: false)
             .addBook(_editedBook);
       } catch (error) {
         await showDialog(

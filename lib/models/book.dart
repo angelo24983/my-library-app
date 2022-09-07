@@ -25,4 +25,13 @@ class Book {
       description: data['description'] ?? 'description',
     );
   }
+
+  Map<String, dynamic> toJson() => {
+        'id': id,
+        'author': author,
+        'category': category,
+        'title': title,
+        'imageUrl': imageUrl,
+        'description': description,
+      };
 }

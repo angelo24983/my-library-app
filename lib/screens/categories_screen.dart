@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-
-import '../dummy_data.dart';
+import 'package:my_library/models/category_model.dart';
+import 'package:provider/provider.dart';
 import '../widgets/category_item.dart';
 
 class CategoriesScreen extends StatelessWidget {
@@ -8,6 +8,7 @@ class CategoriesScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final categoryModel = Provider.of<CategoryModel>(context);
     return GridView(
       padding: const EdgeInsets.all(25),
       gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
@@ -16,7 +17,7 @@ class CategoriesScreen extends StatelessWidget {
         crossAxisSpacing: 20,
         mainAxisSpacing: 20,
       ),
-      children: dummyCategories
+      children: categoryModel.categories
           .map(
             (catData) => CategoryItem(
               id: catData.id,

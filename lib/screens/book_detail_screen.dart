@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import '../dummy_data.dart';
+import 'package:my_library/models/book_model.dart';
+import 'package:provider/provider.dart';
 
 class BookDetailScreen extends StatelessWidget {
   static const routeName = '/book-detail';
@@ -41,7 +42,9 @@ class BookDetailScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final bookId = ModalRoute.of(context)?.settings.arguments as String;
-    final selectedBook = dummyBooks.firstWhere((book) => book.id == bookId);
+    final selectedBook = Provider.of<BookModel>(context)
+        .books
+        .firstWhere((book) => book.id == bookId);
     return Scaffold(
       appBar: AppBar(
         title: Text(selectedBook.title),

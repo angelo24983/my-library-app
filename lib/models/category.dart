@@ -8,6 +8,14 @@ class Category {
   const Category({
     required this.id,
     required this.title,
-    this.color = Colors.orange,
+    required this.color,
   });
+
+  factory Category.fromTDB(Map<String, dynamic> data) {
+    return Category(
+      id: data['id'] ?? 'test',
+      title: data['title'] ?? 'title',
+      color: Color(int.parse(data['color'])),
+    );
+  }
 }
